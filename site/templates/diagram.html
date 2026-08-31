@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Diagram title — Sarah Mason</title>
+    <meta name="description" content="Diagram share." />
+    <link rel="stylesheet" href="/canvas.css" />
+    <script type="module">
+      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+      mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap">
+        <a class="brand" href="/">Sarah Mason</a>
+        <span class="pill">Diagram</span>
+      </div>
+    </header>
+
+    <main class="wrap">
+      <p class="meta">YYYY-MM-DD</p>
+      <h1>Diagram title</h1>
+      <p class="lede">What this diagram shows.</p>
+
+      <div class="diagram">
+        <pre class="mermaid">
+flowchart LR
+  A[Idea] --> B[Canvas]
+  B --> C[Shared URL]
+        </pre>
+      </div>
+
+      <p>Optional notes under the diagram.</p>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <p><a href="/">← Canvas home</a></p>
+      </div>
+    </footer>
+  </body>
+</html>

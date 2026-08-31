@@ -1,0 +1,258 @@
+/* Sarah Mason Canvas — shared stylesheet. Own and change freely. */
+
+:root {
+  --bg: #fafafa;
+  --surface: #ffffff;
+  --ink: #1a1a1e;
+  --muted: #5c5c66;
+  --border: color-mix(in srgb, var(--ink) 10%, transparent);
+  --accent: #2563eb;
+  --accent-soft: color-mix(in srgb, var(--accent) 12%, white);
+  --radius: 12px;
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --max: 42rem;
+  --pad: clamp(1.25rem, 4vw, 2rem);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  font-family: var(--font);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: var(--ink);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--accent);
+  text-underline-offset: 0.15em;
+}
+
+a:hover {
+  color: color-mix(in srgb, var(--accent) 80%, black);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border-radius: var(--radius);
+}
+
+/* ── Layout ──────────────────────────────────────────────────────────────── */
+
+.wrap {
+  max-width: var(--max);
+  margin-inline: auto;
+  padding: var(--pad);
+  padding-block: clamp(1.5rem, 5vw, 3rem);
+}
+
+.site-header {
+  border-block-end: 1px solid var(--border);
+  background: color-mix(in srgb, var(--bg) 85%, transparent);
+  backdrop-filter: blur(10px);
+}
+
+.site-header .wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-block: 0.85rem;
+}
+
+.brand {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.brand:hover {
+  color: var(--accent);
+}
+
+.site-footer {
+  border-block-start: 1px solid var(--border);
+  margin-block-start: auto;
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+.site-footer .wrap {
+  padding-block: 1.25rem 2rem;
+}
+
+/* ── Prose ───────────────────────────────────────────────────────────────── */
+
+h1,
+h2,
+h3 {
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin: 0 0 0.75rem;
+}
+
+h1 {
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+}
+
+h2 {
+  font-size: 1.35rem;
+  margin-block-start: 2rem;
+}
+
+p {
+  margin: 0 0 1rem;
+  color: var(--ink);
+}
+
+.lede {
+  font-size: 1.125rem;
+  color: var(--muted);
+}
+
+.meta {
+  font-size: 0.875rem;
+  color: var(--muted);
+  margin-block-end: 1.5rem;
+}
+
+code,
+pre {
+  font-family: var(--mono);
+  font-size: 0.9em;
+}
+
+code {
+  background: var(--accent-soft);
+  padding: 0.1em 0.35em;
+  border-radius: 4px;
+}
+
+pre {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem;
+  overflow-x: auto;
+}
+
+ul,
+ol {
+  padding-inline-start: 1.25rem;
+  margin: 0 0 1rem;
+}
+
+li {
+  margin-block-end: 0.35rem;
+}
+
+/* ── Photo share ─────────────────────────────────────────────────────────── */
+
+.photo-figure {
+  margin: 0 0 1.5rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) + 4px);
+  padding: 0.75rem;
+}
+
+.photo-figure img {
+  width: 100%;
+  border-radius: var(--radius);
+}
+
+.photo-figure figcaption {
+  margin-block-start: 0.75rem;
+  font-size: 0.9375rem;
+  color: var(--muted);
+  text-align: center;
+}
+
+.photo-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  margin-block-end: 1.5rem;
+}
+
+/* ── Diagram ─────────────────────────────────────────────────────────────── */
+
+.diagram {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  margin-block-end: 1.5rem;
+  overflow-x: auto;
+}
+
+.diagram .mermaid {
+  display: flex;
+  justify-content: center;
+}
+
+/* ── Cards / lists ───────────────────────────────────────────────────────── */
+
+.card-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.card-list a {
+  display: block;
+  padding: 1rem 1.15rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  text-decoration: none;
+  color: var(--ink);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.card-list a:hover {
+  border-color: color-mix(in srgb, var(--accent) 40%, transparent);
+  box-shadow: 0 8px 24px color-mix(in srgb, var(--ink) 6%, transparent);
+  color: var(--accent);
+}
+
+.card-list .card-meta {
+  display: block;
+  font-size: 0.8125rem;
+  color: var(--muted);
+  margin-block-start: 0.25rem;
+}
+
+.pill {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  letter-spacing: 0.02em;
+}
