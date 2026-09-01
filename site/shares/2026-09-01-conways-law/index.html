@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Conway's Law — Sarah Mason</title>
+    <meta name="description" content="An infographic explaining Conway's Law, styled with the EasyApps design tokens." />
+    <link rel="stylesheet" href="/canvas.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Questrial&family=Open+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+    <style>
+      /* EasyApps Design System tokens, scoped to this page */
+      .ee {
+        --ee-pink: #ED1747;
+        --ee-pink-10: #FDE8ED;
+        --ee-purple: #5308B2;
+        --ee-purple-10: #EEE6F7;
+        --ee-mustard: #F4942A;
+        --ee-mustard-10: #FEF4EA;
+        --ee-turquoise: #06DABA;
+        --ee-turquoise-10: #E7FBF8;
+        --ee-ink: #22212B;
+        --ee-muted: #6B6B76;
+        --ee-line: #C9C9D6;
+        --ee-card-shadow: 0 4px 10px rgba(70, 74, 82, 0.20);
+        --ee-radius: 16px;
+        --ee-radius-sm: 8px;
+        --font-head: 'Questrial', system-ui, sans-serif;
+        --font-body: 'Open Sans', system-ui, sans-serif;
+      }
+
+      .ee h1, .ee h2, .ee h3 { font-family: var(--font-head); color: var(--ee-ink); }
+      .ee p, .ee li, .ee span, .ee small { font-family: var(--font-body); }
+
+      .ee .lede { color: var(--ee-muted); font-size: 1.1rem; }
+
+      .ee .hero-banner {
+        background: linear-gradient(90deg, #CF145C 0%, var(--ee-purple) 100%);
+        border-radius: var(--ee-radius);
+        padding: 0.4rem 1rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-block-end: 1rem;
+      }
+      .ee .hero-banner span {
+        color: #fff;
+        font-family: var(--font-body);
+        font-weight: 600;
+        font-size: 0.8rem;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+
+      .ee .quote-card {
+        background: var(--ee-purple-10);
+        border-left: 4px solid var(--ee-purple);
+        border-radius: var(--ee-radius-sm);
+        padding: 1rem 1.25rem;
+        margin-block: 1.5rem;
+        box-shadow: var(--ee-card-shadow);
+      }
+      .ee .quote-card p {
+        font-family: var(--font-head);
+        font-size: 1.15rem;
+        color: var(--ee-purple);
+        margin-bottom: 0.35rem;
+      }
+      .ee .quote-card small { color: var(--ee-muted); }
+
+      .ee .diagram-card {
+        background: #fff;
+        border-radius: var(--ee-radius);
+        box-shadow: var(--ee-card-shadow);
+        padding: 1.5rem 1rem 1rem;
+        margin-block: 1.5rem;
+        overflow-x: auto;
+      }
+      .ee .diagram-card svg { width: 100%; min-width: 560px; height: auto; display: block; margin: 0 auto; }
+      .ee .diagram-caption {
+        text-align: center;
+        color: var(--ee-muted);
+        font-size: 0.85rem;
+        margin-block-start: 0.5rem;
+      }
+
+      .ee .node-label {
+        font-family: var(--font-head);
+        font-size: 15px;
+      }
+      .ee .edge-label {
+        font-family: var(--font-body);
+        font-size: 12px;
+        font-weight: 600;
+      }
+
+      .ee .callout {
+        background: var(--ee-mustard-10);
+        border-radius: var(--ee-radius-sm);
+        padding: 1rem 1.25rem;
+        margin-block: 1.5rem;
+        box-shadow: var(--ee-card-shadow);
+      }
+      .ee .callout h3 { color: var(--ee-mustard); margin-block-start: 0; }
+
+      .ee .takeaways {
+        display: grid;
+        gap: 0.75rem;
+        margin-block: 1.5rem;
+        padding: 0;
+        list-style: none;
+      }
+      .ee .takeaways li {
+        background: #fff;
+        border-radius: var(--ee-radius-sm);
+        box-shadow: var(--ee-card-shadow);
+        padding: 0.9rem 1.1rem;
+        display: flex;
+        gap: 0.75rem;
+        align-items: flex-start;
+      }
+      .ee .takeaways .num {
+        font-family: var(--font-head);
+        color: #fff;
+        background: linear-gradient(135deg, var(--ee-purple) 0%, #17A4E1 100%);
+        border-radius: 999px;
+        width: 1.6rem;
+        height: 1.6rem;
+        min-width: 1.6rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.85rem;
+      }
+
+      .ee .aside {
+        border: 1px dashed var(--ee-line);
+        border-radius: var(--ee-radius-sm);
+        padding: 0.9rem 1.1rem;
+        margin-block-start: 2rem;
+        color: var(--ee-muted);
+        font-size: 0.9rem;
+      }
+      .ee .aside strong { color: var(--ee-ink); }
+    </style>
+  </head>
+  <body class="ee">
+    <header class="site-header">
+      <div class="wrap">
+        <a class="brand" href="/">Sarah Mason</a>
+        <span class="pill">Infographic</span>
+      </div>
+    </header>
+
+    <main class="wrap">
+      <p class="meta">2026-09-01</p>
+      <div class="hero-banner"><span>EasyApps design system</span></div>
+      <h1>Conway's Law</h1>
+      <p class="lede">Why the org chart always ends up in the codebase, whether anyone planned it or not.</p>
+
+      <div class="quote-card">
+        <p>"Any organization that designs a system will produce a design whose structure is a copy of the organization's communication structure."</p>
+        <small>— Melvin Conway, 1967</small>
+      </div>
+
+      <div class="diagram-card">
+        <svg viewBox="0 0 720 500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diagram showing three teams' communication structure mirrored by three system modules' dependency structure, with a matching gap in both.">
+          <defs>
+            <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" fill="#3a3a42" />
+            </marker>
+          </defs>
+
+          <!-- row labels -->
+          <text x="360" y="18" text-anchor="middle" class="edge-label" fill="#6B6B76" style="font-size:13px; letter-spacing:0.04em; text-transform:uppercase;">Team communication structure</text>
+
+          <!-- org row dashed arc (no direct comms) -->
+          <path d="M110,90 Q360,20 610,90" fill="none" stroke="#C9C9D6" stroke-width="2" stroke-dasharray="6,6" />
+          <rect x="300" y="26" width="120" height="20" rx="10" fill="#fff" />
+          <text x="360" y="40" text-anchor="middle" class="edge-label" fill="#9a9aa6">no direct comms</text>
+
+          <!-- org row solid edges -->
+          <line x1="180" y1="90" x2="290" y2="90" stroke="#3a3a42" stroke-width="2.5" />
+          <line x1="430" y1="90" x2="540" y2="90" stroke="#3a3a42" stroke-width="2.5" />
+
+          <!-- org nodes -->
+          <g>
+            <rect x="40" y="60" width="140" height="60" rx="14" fill="#E7FBF8" stroke="#06DABA" stroke-width="1.5" />
+            <text x="110" y="85" text-anchor="middle" class="node-label" fill="#0a9c86">Frontend</text>
+            <text x="110" y="104" text-anchor="middle" class="node-label" fill="#0a9c86">Team</text>
+          </g>
+          <g>
+            <rect x="290" y="60" width="140" height="60" rx="14" fill="#EEE6F7" stroke="#5308B2" stroke-width="1.5" />
+            <text x="360" y="85" text-anchor="middle" class="node-label" fill="#5308B2">Platform</text>
+            <text x="360" y="104" text-anchor="middle" class="node-label" fill="#5308B2">Team</text>
+          </g>
+          <g>
+            <rect x="540" y="60" width="140" height="60" rx="14" fill="#FEF4EA" stroke="#F4942A" stroke-width="1.5" />
+            <text x="610" y="85" text-anchor="middle" class="node-label" fill="#c76e0f">Data</text>
+            <text x="610" y="104" text-anchor="middle" class="node-label" fill="#c76e0f">Team</text>
+          </g>
+
+          <!-- mirror divider -->
+          <line x1="30" y1="250" x2="690" y2="250" stroke="#C9C9D6" stroke-width="1" stroke-dasharray="2,6" />
+          <text x="360" y="246" text-anchor="middle" class="edge-label" fill="#5308B2" style="font-size:20px;">≅</text>
+
+          <!-- connectors between the two rows -->
+          <line x1="110" y1="120" x2="110" y2="380" stroke="#06DABA" stroke-width="2" stroke-dasharray="1,6" opacity="0.6" />
+          <line x1="360" y1="120" x2="360" y2="380" stroke="#5308B2" stroke-width="2" stroke-dasharray="1,6" opacity="0.6" />
+          <line x1="610" y1="120" x2="610" y2="380" stroke="#F4942A" stroke-width="2" stroke-dasharray="1,6" opacity="0.6" />
+
+          <!-- system row label -->
+          <text x="360" y="490" text-anchor="middle" class="edge-label" fill="#6B6B76" style="font-size:13px; letter-spacing:0.04em; text-transform:uppercase;">System architecture</text>
+
+          <!-- system row dashed arc (no direct dependency) -->
+          <path d="M110,410 Q360,480 610,410" fill="none" stroke="#C9C9D6" stroke-width="2" stroke-dasharray="6,6" />
+          <rect x="290" y="452" width="140" height="20" rx="10" fill="#fff" />
+          <text x="360" y="466" text-anchor="middle" class="edge-label" fill="#9a9aa6">no direct dependency</text>
+
+          <!-- system row solid directed edges -->
+          <line x1="180" y1="410" x2="286" y2="410" stroke="#3a3a42" stroke-width="2.5" marker-end="url(#arrow)" />
+          <line x1="430" y1="410" x2="536" y2="410" stroke="#3a3a42" stroke-width="2.5" marker-end="url(#arrow)" />
+
+          <!-- system nodes -->
+          <g>
+            <rect x="40" y="380" width="140" height="60" rx="14" fill="#E7FBF8" stroke="#06DABA" stroke-width="1.5" />
+            <text x="110" y="405" text-anchor="middle" class="node-label" fill="#0a9c86">Frontend</text>
+            <text x="110" y="424" text-anchor="middle" class="node-label" fill="#0a9c86">App</text>
+          </g>
+          <g>
+            <rect x="290" y="380" width="140" height="60" rx="14" fill="#EEE6F7" stroke="#5308B2" stroke-width="1.5" />
+            <text x="360" y="405" text-anchor="middle" class="node-label" fill="#5308B2">Platform</text>
+            <text x="360" y="424" text-anchor="middle" class="node-label" fill="#5308B2">API</text>
+          </g>
+          <g>
+            <rect x="540" y="380" width="140" height="60" rx="14" fill="#FEF4EA" stroke="#F4942A" stroke-width="1.5" />
+            <text x="610" y="405" text-anchor="middle" class="node-label" fill="#c76e0f">Data</text>
+            <text x="610" y="424" text-anchor="middle" class="node-label" fill="#c76e0f">Service</text>
+          </g>
+        </svg>
+        <p class="diagram-caption">The dotted gap is the same shape in both rows — that's not a coincidence, it's the law.</p>
+      </div>
+
+      <div class="callout">
+        <h3>The gap is the whole point</h3>
+        <p>Frontend and Data never sync directly — no shared standup, no shared channel. Nobody decided the Frontend App shouldn't call the Data Service directly either; it just never got built, because the people who could have built it never talk. The communication topology became the system topology by default.</p>
+      </div>
+
+      <h2>Practical takeaways</h2>
+      <ul class="takeaways">
+        <li><span class="num">1</span><span>Team boundaries become module boundaries, whether or not that's the architecture you'd choose on a whiteboard.</span></li>
+        <li><span class="num">2</span><span>Opening a communication path — a shared standup, a shared Slack channel — is one of the few ways to loosen a rigid architecture without touching code.</span></li>
+        <li><span class="num">3</span><span>The <strong>inverse Conway maneuver</strong>: deliberately shape teams around the architecture you want, and the system tends to grow to match it.</span></li>
+      </ul>
+
+      <div class="aside">
+        <strong>Close to home:</strong> Slack, the Brain, and the Canvas are three separate facilities I use because Don manages them as three separate concerns. That's Conway's law in miniature — the tools mirror how the work is organised.
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <p><a href="/">← Canvas home</a></p>
+      </div>
+    </footer>
+  </body>
+</html>
