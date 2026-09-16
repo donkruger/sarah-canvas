@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Power Laws, Explained for Dummies — Sarah Mason</title>
+    <meta name="description" content="An infographic explaining power laws — long tails, the 80/20 rule, and the log-log straight line — styled with the EasyApps design tokens." />
+    <link rel="stylesheet" href="/canvas.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Questrial&family=Open+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+    <style>
+      /* EasyApps Design System tokens, scoped to this page */
+      .ee {
+        --ee-pink: #ED1747;
+        --ee-pink-10: #FDE8ED;
+        --ee-purple: #5308B2;
+        --ee-purple-10: #EEE6F7;
+        --ee-mustard: #F4942A;
+        --ee-mustard-10: #FEF4EA;
+        --ee-turquoise: #06DABA;
+        --ee-turquoise-10: #E7FBF8;
+        --ee-ink: #22212B;
+        --ee-muted: #6B6B76;
+        --ee-line: #C9C9D6;
+        --ee-card-shadow: 0 4px 10px rgba(70, 74, 82, 0.20);
+        --ee-radius: 16px;
+        --ee-radius-sm: 8px;
+        --font-head: 'Questrial', system-ui, sans-serif;
+        --font-body: 'Open Sans', system-ui, sans-serif;
+      }
+
+      .ee h1, .ee h2, .ee h3 { font-family: var(--font-head); color: var(--ee-ink); }
+      .ee p, .ee li, .ee span, .ee small { font-family: var(--font-body); }
+
+      .ee .lede { color: var(--ee-muted); font-size: 1.1rem; }
+
+      .ee .hero-banner {
+        background: linear-gradient(90deg, #CF145C 0%, var(--ee-purple) 100%);
+        border-radius: var(--ee-radius);
+        padding: 0.4rem 1rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-block-end: 1rem;
+      }
+      .ee .hero-banner span {
+        color: #fff;
+        font-family: var(--font-body);
+        font-weight: 600;
+        font-size: 0.8rem;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+
+      .ee .quote-card {
+        background: var(--ee-purple-10);
+        border-left: 4px solid var(--ee-purple);
+        border-radius: var(--ee-radius-sm);
+        padding: 1rem 1.25rem;
+        margin-block: 1.5rem;
+        box-shadow: var(--ee-card-shadow);
+      }
+      .ee .quote-card p {
+        font-family: var(--font-head);
+        font-size: 1.15rem;
+        color: var(--ee-purple);
+        margin-bottom: 0.35rem;
+      }
+      .ee .quote-card small { color: var(--ee-muted); }
+
+      .ee .diagram-card {
+        background: #fff;
+        border-radius: var(--ee-radius);
+        box-shadow: var(--ee-card-shadow);
+        padding: 1.5rem 1rem 1rem;
+        margin-block: 1.5rem;
+        overflow-x: auto;
+      }
+      .ee .diagram-card svg { width: 100%; min-width: 620px; height: auto; display: block; margin: 0 auto; }
+      .ee .diagram-caption {
+        text-align: center;
+        color: var(--ee-muted);
+        font-size: 0.85rem;
+        margin-block-start: 0.5rem;
+      }
+
+      .ee .panel-title {
+        font-family: var(--font-head);
+        font-size: 13px;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+      .ee .axis-label {
+        font-family: var(--font-body);
+        font-size: 11px;
+        font-weight: 600;
+      }
+
+      .ee .callout {
+        background: var(--ee-mustard-10);
+        border-radius: var(--ee-radius-sm);
+        padding: 1rem 1.25rem;
+        margin-block: 1.5rem;
+        box-shadow: var(--ee-card-shadow);
+      }
+      .ee .callout h3 { color: var(--ee-mustard); margin-block-start: 0; }
+
+      .ee .example-grid {
+        display: grid;
+        gap: 0.75rem;
+        grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+        margin-block: 1.5rem;
+        padding: 0;
+        list-style: none;
+      }
+      .ee .example-grid li {
+        background: #fff;
+        border-radius: var(--ee-radius-sm);
+        box-shadow: var(--ee-card-shadow);
+        padding: 0.9rem 1.1rem;
+      }
+      .ee .example-grid strong { color: var(--ee-purple); display: block; margin-block-end: 0.2rem; }
+      .ee .example-grid span { color: var(--ee-muted); font-size: 0.92rem; }
+
+      .ee .takeaways {
+        display: grid;
+        gap: 0.75rem;
+        margin-block: 1.5rem;
+        padding: 0;
+        list-style: none;
+      }
+      .ee .takeaways li {
+        background: #fff;
+        border-radius: var(--ee-radius-sm);
+        box-shadow: var(--ee-card-shadow);
+        padding: 0.9rem 1.1rem;
+        display: flex;
+        gap: 0.75rem;
+        align-items: flex-start;
+      }
+      .ee .takeaways .num {
+        font-family: var(--font-head);
+        color: #fff;
+        background: linear-gradient(135deg, var(--ee-purple) 0%, #17A4E1 100%);
+        border-radius: 999px;
+        width: 1.6rem;
+        height: 1.6rem;
+        min-width: 1.6rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.85rem;
+      }
+
+      .ee .aside {
+        border: 1px dashed var(--ee-line);
+        border-radius: var(--ee-radius-sm);
+        padding: 0.9rem 1.1rem;
+        margin-block-start: 2rem;
+        color: var(--ee-muted);
+        font-size: 0.9rem;
+      }
+      .ee .aside strong { color: var(--ee-ink); }
+    </style>
+  </head>
+  <body class="ee">
+    <header class="site-header">
+      <div class="wrap">
+        <a class="brand" href="/">Sarah Mason</a>
+        <span class="pill">Infographic</span>
+      </div>
+    </header>
+
+    <main class="wrap">
+      <p class="meta">2026-09-16</p>
+      <div class="hero-banner"><span>EasyApps design system</span></div>
+      <h1>Power Laws, Explained for Dummies</h1>
+      <p class="lede">Most things you can measure cluster around an average — heights, test scores, commute times. Power laws describe the things that don't: a tiny handful are enormous, and everything else trails off fast, forever.</p>
+
+      <div class="quote-card">
+        <p>"A small share of the pea pods in his garden produced most of the peas."</p>
+        <small>— the observation that started it: Vilfredo Pareto, 1896</small>
+      </div>
+
+      <p>Pareto noticed the same lopsided split in land ownership, income, even his peas: roughly 20% of causes producing roughly 80% of the effect. That's the everyday name for a power law — the <strong>80/20 rule</strong> — but the real definition is about shape, not the exact numbers.</p>
+
+      <div class="diagram-card">
+        <svg viewBox="0 0 720 460" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Two panels: a bar chart of rank versus value showing a steep drop then a long flat tail, and the same data plotted on logarithmic axes forming a straight line.">
+          <text x="180" y="26" text-anchor="middle" class="panel-title" fill="#6B6B76">Plotted normally</text>
+          <text x="540" y="26" text-anchor="middle" class="panel-title" fill="#6B6B76">Plotted on log–log axes</text>
+
+          <!-- Panel 1: bar chart, steep drop + long tail -->
+          <g>
+            <line x1="40" y1="340" x2="340" y2="340" stroke="#C9C9D6" stroke-width="1.5" />
+            <line x1="40" y1="60" x2="40" y2="340" stroke="#C9C9D6" stroke-width="1.5" />
+
+            <rect x="42" y="200" width="18" height="140" rx="3" fill="#ED1747" />
+            <rect x="66" y="270" width="18" height="70" rx="3" fill="#5308B2" />
+            <rect x="90" y="292" width="18" height="48" rx="3" fill="#5308B2" />
+            <rect x="114" y="301" width="18" height="39" rx="3" fill="#06DABA" />
+            <rect x="138" y="307" width="18" height="33" rx="3" fill="#06DABA" />
+            <rect x="162" y="312" width="18" height="28" rx="3" fill="#06DABA" />
+            <rect x="186" y="315" width="18" height="25" rx="3" fill="#06DABA" />
+            <rect x="210" y="318" width="18" height="22" rx="3" fill="#06DABA" />
+            <rect x="234" y="320" width="18" height="20" rx="3" fill="#06DABA" />
+            <rect x="258" y="322" width="18" height="18" rx="3" fill="#06DABA" />
+            <rect x="282" y="323" width="18" height="17" rx="3" fill="#06DABA" />
+            <rect x="306" y="325" width="18" height="15" rx="3" fill="#06DABA" />
+
+            <text x="51" y="192" text-anchor="middle" class="axis-label" fill="#ED1747">biggest</text>
+            <text x="220" y="360" text-anchor="middle" class="axis-label" fill="#0a9c86">long tail — small, but there's a LOT of them</text>
+            <text x="14" y="200" text-anchor="middle" class="axis-label" fill="#6B6B76" transform="rotate(-90 14 200)">value</text>
+            <text x="190" y="380" text-anchor="middle" class="axis-label" fill="#6B6B76">rank (1st, 2nd, 3rd, …)</text>
+          </g>
+
+          <!-- Panel 2: log-log straight line -->
+          <g>
+            <line x1="420" y1="340" x2="680" y2="340" stroke="#C9C9D6" stroke-width="1.5" />
+            <line x1="420" y1="60" x2="420" y2="340" stroke="#C9C9D6" stroke-width="1.5" />
+
+            <line x1="428" y1="90" x2="672" y2="330" stroke="#5308B2" stroke-width="3" stroke-linecap="round" />
+            <circle cx="440" cy="102" r="5" fill="#ED1747" />
+            <circle cx="480" cy="142" r="5" fill="#5308B2" />
+            <circle cx="520" cy="182" r="5" fill="#5308B2" />
+            <circle cx="560" cy="222" r="5" fill="#06DABA" />
+            <circle cx="600" cy="262" r="5" fill="#06DABA" />
+            <circle cx="640" cy="302" r="5" fill="#06DABA" />
+
+            <text x="550" y="205" text-anchor="middle" class="axis-label" fill="#5308B2" transform="rotate(39 550 205)">a straight line = a power law</text>
+            <text x="394" y="200" text-anchor="middle" class="axis-label" fill="#6B6B76" transform="rotate(-90 394 200)">log(value)</text>
+            <text x="550" y="380" text-anchor="middle" class="axis-label" fill="#6B6B76">log(rank)</text>
+          </g>
+        </svg>
+        <p class="diagram-caption">Same data, two views. Squashed and stretched on normal axes (left); once both axes become logarithmic, that curve straightens out (right) — that straight line is the signature mathematicians look for.</p>
+      </div>
+
+      <div class="callout">
+        <h3>The 80/20 shortcut</h3>
+        <p>You don't need logarithms to use this. If a list is power-law shaped, a small top slice — often around 20% — accounts for most of the total, often around 80%. Not exactly 80/20 every time, but close enough to be a useful gut check: check the top few before assuming the rest matter equally.</p>
+      </div>
+
+      <h2>Where this shows up</h2>
+      <ul class="example-grid">
+        <li><strong>Word frequency</strong><span>"The" and "of" appear constantly; most words in the dictionary appear almost never. (Zipf's law)</span></li>
+        <li><strong>City sizes</strong><span>A few megacities, then a rapid drop to thousands of small towns.</span></li>
+        <li><strong>Wealth</strong><span>Pareto's original example — still holds, in most countries, over a century later.</span></li>
+        <li><strong>Earthquakes</strong><span>Small tremors happen constantly; massive ones are rare but not "impossible."</span></li>
+        <li><strong>App downloads / follower counts</strong><span>A handful of apps or accounts dwarf everything else in the store or platform.</span></li>
+        <li><strong>Customer revenue</strong><span>A small number of accounts often generate most of the revenue — and most of the support tickets too.</span></li>
+      </ul>
+
+      <h2>Why it matters</h2>
+      <ul class="takeaways">
+        <li><span class="num">1</span><span><strong>No "typical" size.</strong> With a bell curve, the average is a sensible summary. With a power law, the average can be misleading — most items are far below it, and a few blow way past it.</span></li>
+        <li><span class="num">2</span><span><strong>Outliers aren't glitches.</strong> A power law predicts extreme values as a normal part of the pattern, not something to explain away.</span></li>
+        <li><span class="num">3</span><span><strong>The straight-line test.</strong> Plot rank against value on log–log axes. Roughly straight for a good stretch? You're likely looking at a power law.</span></li>
+        <li><span class="num">4</span><span><strong>Plan for the head, not just the average.</strong> If one input can be 100x the typical one, capacity, pricing, and support plans built around "the average case" will break.</span></li>
+      </ul>
+
+      <div class="aside">
+        <strong>Close to home:</strong> ticket volume, feature usage, and revenue-per-customer tend to be power-law shaped too — a handful of accounts or issues driving most of the load. Worth a second look next time an average number looks reassuring.
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <p><a href="/">← Canvas home</a></p>
+      </div>
+    </footer>
+  </body>
+</html>
